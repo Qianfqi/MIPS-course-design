@@ -1,0 +1,31 @@
+
+	ori $29, $0, 12
+	ori $2, $0, 0x1234
+	ori $3, $0, 0x3456
+	addu $4, $2, $3
+	subu $6, $3, $4
+	lui $s1, 2
+	lui $s2, 3
+	slt $s3, $s1, $s2
+	sw $2, 0($0)
+	sw $3, 4($0)
+	sw $4, 4($29)
+	lw $5, 0($0)
+	beq $2, $5, _lb2
+_lb1:
+	lw $3, 4($29)
+_lb2:
+	lw $5, 4($0)
+	beq $3, $5, _lb1
+	j J_taeget
+	
+J_taeget:
+	lui $t8 5
+	lui $t9 10
+	jal F_Test_JAL		
+	
+F_Test_JAL:
+	beq $t8 $t9 _jump
+	addu $t8 $t8 $t8
+	_jump:
+	jr $ra
